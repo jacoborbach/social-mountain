@@ -12,7 +12,8 @@ class App extends Component {
     super();
 
     this.state = {
-      posts: []
+      posts: [],
+      unfilteredPosts: []
     };
 
     this.updatePost = this.updatePost.bind(this);
@@ -23,7 +24,7 @@ class App extends Component {
 
   componentDidMount() {
     axios.get('https://practiceapi.devmountain.com/api/posts')
-      .then(res => this.setState({ posts: res.data }))
+      .then(res => this.setState({ posts: res.data, unfilteredPosts: res.data }))
 
   }
 
@@ -43,16 +44,8 @@ class App extends Component {
   }
 
   filterPost(input) {
-    // axios.get('https://practiceapi.devmountain.com/api/posts')
-    //   .then(res => this.setState({
-    //     posts: res.data.filter((element) => {
-    //       element.text.includes(text)
-    //     })
-    //   }))
-    const { posts } = this.state;
-    const filterPosts = posts.filter(element => element.text.includes(input))
-    const newPostsArray = [...filterPosts]
-    this.setState({ posts: newPostsArray })
+    const { unfilteredPosts } = this.state;
+    this.setState({ posts: unfilteredPosts.filter(element => element.text.includes(input)) })
   }
 
   render() {
@@ -60,11 +53,11 @@ class App extends Component {
 
     return (
       <div className="App__parent" >
-        <Header />
+        <Header filterPostFn={this.filterPost} />
 
         <section className="App__content">
 
-          <Compose createPostFn={this.createPost} filterPostFn={this.filterPost} />
+          <Compose createPostFn={this.createPost} />
 
           {posts.map((element) => <Post key={element.id} date={element.date} text={element.text} updatePostFn={this.updatePost} id={element.id} deletePostFn={this.deletePost} />)
           }

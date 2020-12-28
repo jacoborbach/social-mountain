@@ -20,9 +20,6 @@ export default class Compose extends Component {
   updateText(text) {
     this.setState({ text });
 
-    const { filterPostFn } = this.props;
-    filterPostFn(text)
-
   }
 
   createPost() {
@@ -32,13 +29,6 @@ export default class Compose extends Component {
     createPostFn(text);
     this.setState({ text: '' })
   }
-
-  // filterPost() {
-  //   const { text } = this.state;
-  //   const { filterPostFn } = this.props;
-
-
-  // }
 
   render() {
     // Destructuring
