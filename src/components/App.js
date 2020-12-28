@@ -31,8 +31,9 @@ class App extends Component {
       .then(res => this.setState({ posts: res.data }))
   }
 
-  deletePost() {
-
+  deletePost(id) {
+    axios.delete(`https://practiceapi.devmountain.com/api/posts?id=${id}`)
+      .then(res => this.setState({ posts: res.data }))
   }
 
   createPost() {
@@ -52,7 +53,7 @@ class App extends Component {
 
         </section>
 
-        { posts.map((element) => <Post key={element.id} date={element.date} text={element.text} updatePostFn={this.updatePost} id={element.id} />)
+        { posts.map((element) => <Post key={element.id} date={element.date} text={element.text} updatePostFn={this.updatePost} id={element.id} deletePostFn={this.deletePost} />)
         }
       </div >
     );
