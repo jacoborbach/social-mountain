@@ -4,6 +4,8 @@ import './App.css';
 
 import Header from './Header/Header';
 import Compose from './Compose/Compose';
+import axios from 'axios';
+import Post from './Post'
 
 class App extends Component {
   constructor() {
@@ -13,17 +15,19 @@ class App extends Component {
       posts: []
     };
 
-    this.updatePost = this.updatePost.bind( this );
-    this.deletePost = this.deletePost.bind( this );
-    this.createPost = this.createPost.bind( this );
+    this.updatePost = this.updatePost.bind(this);
+    this.deletePost = this.deletePost.bind(this);
+    this.createPost = this.createPost.bind(this);
   }
-  
+
   componentDidMount() {
+    axios.get('https://practiceapi.devmountain.com/api/posts')
+      .then(res => this.setState({ posts: res.data }))
 
   }
 
   updatePost() {
-  
+
   }
 
   deletePost() {
@@ -44,8 +48,10 @@ class App extends Component {
         <section className="App__content">
 
           <Compose />
-          
+
         </section>
+
+        {posts.map((element) => <Post key={element.id} />)}
       </div>
     );
   }
