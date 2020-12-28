@@ -5,7 +5,7 @@ import './App.css';
 import Header from './Header/Header';
 import Compose from './Compose/Compose';
 import axios from 'axios';
-import Post from './Post'
+import Post from './Post/Post'
 
 class App extends Component {
   constructor() {
@@ -51,7 +51,7 @@ class App extends Component {
 
         </section>
 
-        {posts.map((element) => <Post key={element.id} />)}
+        {posts.map((element) => <Post key={element.id} date={element.date} text={element.text} />)}
       </div>
     );
   }
